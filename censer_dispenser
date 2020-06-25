@@ -86,7 +86,7 @@ def delete(word):
 def redactor(sensitive_document, banned_words):
     transient_document = sensitive_document 
     for word in banned_words: 
-        transient_document = transient_document.replace(str(''+word+''), str('' +delete(word)+ ''))
+        transient_document = transient_document.replace(str(''+word+''), str(''+delete(word)+''))
     return transient_document
 
 ###################################################################################
@@ -99,11 +99,12 @@ def classified_redaction(sensitive_document, to_redact):
         if term in to_redact:
             index += 1
             if index+1 < len(struggle_bus): 
-                struggle_bus[index-1], struggle_bus[index+1], struggle_bus[index] = delete(term), delete(term), delete(term)
+                struggle_bus[index-1], struggle_bus[index+1], struggle_bus[index] = \
+                delete(struggle_bus[index-1]), delete(struggle_bus[index+1]), delete(struggle_bus[index])
             elif index+1 > len(struggle_bus) and index-1 >= 0:
-                struggle_bus[index-1], struggle_bus[index]= delete(term), delete(term)
+                struggle_bus[index-1], struggle_bus[index]= delete(struggle_bus[index-1]), delete(struggle_bus[index])
             else:
-                struggle_bus[index]= delete(term)
+                struggle_bus[index]= delete(struggle_bus[index])
         else:
             index += 1
     return ' '.join(struggle_bus)
@@ -117,7 +118,7 @@ def redact_root(sensitive_document, proprietary_terms, stringency):
     banned_words = redacted_terms(proprietary_terms+bad_combo)
     if stringency == 1:
         for word in bad_combo: 
-            return sensitive_document.replace(str(''+word+''), str('' +delete(word)+ ''))
+            return sensitive_document.replace(str(''+word+''), str(''+delete(word)+''))
     if stringency == 2:
         return redactor(sensitive_document, banned_words)
     if stringency == 3:
@@ -149,7 +150,7 @@ print('''
 number %f ''' %(stringency))
 print(redact_root(email_four, proprietary_terms, stringency))
 
-
+# print(email_four)
 
 ###################################################################################
 #heres userinput. flexibility. stress testing. need to comment above and go ahead
@@ -189,6 +190,3 @@ print(redact_root(email_four, proprietary_terms, stringency))
 #thats all folks.
 
 ###################################################################################
-
-
-

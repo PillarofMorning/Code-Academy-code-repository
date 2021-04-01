@@ -226,7 +226,7 @@ def pokebattle(blue, red):
 #
 #
 #
-#
+# creation of trainer class to assign an inventory and pokemon to
 wowwow = Trainer('wowwow')
 print('''
 
@@ -235,11 +235,12 @@ wowwow.addinventory(wowwow, 'potion')
 
 print('''
 
+#assigning an inventory item
 pokecreation''')
 pokecreation(trainer = wowwow, nickname='Bulby',
              ogpokes=Bulbasaur, hp=85, moves=[Tackle, Absorb])
 
-
+#simulation of a poke-battle checking KO status before and after.
 print(wowwow.available_pokemon)
 print(wowwow.ko)
 Charmander.attack(wowwow, Bulby, Ember)
